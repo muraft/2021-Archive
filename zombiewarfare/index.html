@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Zombie Survival 0.2 Alpha</title>
+</head>
+<body align="center">
+	<h1>Zombie Survival 0.2 Alpha</h1>
+	<canvas id="screen" width="300" height="300"></canvas>
+	
+	<div id="controller">
+	  <div id="left" onclick="pressed('left')">&lArr;</div>
+	  <div id="down" onclick="pressed('down')">&dArr;</div>
+	  <div id="up" onclick="pressed('up')">&uArr;</div>
+	  <div id="right" onclick="pressed('right')">&rArr;</div>
+	  <br>
+	  <div id="shoot" onclick="pressed('shoot')">FIRE</div>
+	</div>
+  <script>
+	const canvas = document.getElementById('screen');
+	const ctx = canvas.getContext('2d');
+  </script>
+  <script src="js/inputhandler.js"></script>
+  <script src="js/objects.js"></script>
+  <script src="js/objectcreator.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

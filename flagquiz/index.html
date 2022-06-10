@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Flag Quiz</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="Muhammad Rafie Triyato's Personal Blog">
+<meta name="keywords" content="Muhammad Rafie Triyanto, indonesia,personal blog, MuRafT">
+
+<link rel="icon" type="image/png" href="media/logo.png"> 
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="screen" align="center">
+    
+    <div id="startscreen">
+      <div class="title">
+        🚩FLAG QUIZ🚩
+      </div>
+      <div id="subtitle">
+        Powered by <a href="https://muraft.great-site.net" target=" _blank" >MuRafT</a>
+      </div> 
+      <div id="play" class="button" onclick="start()">
+        PLAY
+      </div>
+    </div>
+    
+    <div id="quizscreen" align="center">
+      <div id="timerbar"></div>
+      <div id="scorebox"></div>
+      <!--<div id="hpbox">
+        <span class="hp">❤️</span>
+        <span class="hp">❤️</span>
+        <span class="hp">❤️</span>
+      </div>-->
+      <div id="question">
+        ⌛
+      </div>
+      <div id="answers">
+        <div class="option button" onclick="checkanswer(0)">...</div>
+        <div class="option button" onclick="checkanswer(1)">...</div>
+        <div class="option button" onclick="checkanswer(2)">...</div>
+        <div class="option button" onclick="checkanswer(3)">...</div>
+      </div>
+    </div>
+    
+    <div id="endscreen">
+      <div class="title">Your Result</div>
+      <div id="result">
+       Correct Answer: 10
+       <br>
+       Total time    : 10
+       <br>
+       Total score   : 1000
+      </div>
+      <div class="title">
+        Screenshoot and share to your friends!
+      </div>
+    </div>
+    
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

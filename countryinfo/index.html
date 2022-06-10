@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+	<title>Country Informaion</title>
+	<link href="css/style.css" rel="stylesheet" />
+	
+	<style>
+		body
+		{
+			background-color: #6598eb;
+			font-family: Pangolin;
+			color: white;
+			user-select: none;
+			text-align: center;
+		}
+		section
+		{
+			border: 2px solid white;
+			border-radius: 10px;
+			padding: 10px;
+			overflow-x: auto;
+			margin-top: 20px;
+		}
+		input
+		{
+			margin: 10px;
+			background-color: #6598eb;
+			border: 1px solid white;
+			transition: border-radius 0.5s;
+			transition: background-color 0.5s;
+			outline: none;
+			color: white;
+			resize: none;
+		}
+		input:focus
+		{
+			border-radius: 0px;
+			background-color: #c4cfff;
+			color: black;
+		}
+		#countryinfo
+		{
+			display: none;
+		}
+		#countryinfo ul
+		{
+			list-style: none;
+			text-align: left;
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<h1>Input Country Name</h1>
+		<input type='text' id='countryname'></input>
+		<button onclick='search()'>Search</button>
+	</section>
+	<section id="countryinfo">
+		<img src="" width="200px" height="130px"></img>
+		<h1></h1>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</section>
+
+
+
+	<script type="text/javascript">
+	const flag=document.querySelector("#countryinfo img")
+	const name=document.querySelector("#countryinfo h1")
+	const info=Array.from(document.querySelectorAll("#countryinfo ul li"))
+	
+	
+	function connect(url,succes)
+	{
+		let xhr = new XMLHttpRequest()
+		xhr.onreadystatechange=function()
+		{
+			if (this.readyState === 4 && this.status === 200)
+			{
+				succes(JSON.parse(this.responseText)[0])
+			}
+			else
+			{
+				flag.src='';
+				name.innerHTML='Country Not Found'
+				info.map(v=>v.innerText='')
+			}
+		}
+		xhr.open("GET", url);
+		xhr.send()
+	}
+	
+	
+	
+	function print(country)
+	{
+		flag.src=country.flags.png;
+		name.innerHTML=`${country.name.official} (${country.name.common})`;
+		
+		info[0].innerText='Capital City : '+country.capital;
+		
+		info[1].innerText='Continent : '+country.subregion+', '+country.region;
+		
+		const curr=Object.entries(country.currencies).reduce((a,b)=>a+b[1].name+' ('+b[1].symbol+'), ','Currency : ')
+		info[2].innerText=curr.substring(0, curr.length - 2);
+		
+		const lang=Object.entries(country.languages).reduce((a,b)=>a+b[1]+', ','Languages : ')
+		info[3].innerText=lang.substring(0, lang.length - 2);
+	}
+	
+	function search()
+	{
+		document.getElementById('countryinfo').style.display='block';
+		connect('https://restcountries.com/v3.1/name/'+encodeURIComponent(document.getElementById('countryname').value),print);
+	}
+	</script>
+</body>
+</html>

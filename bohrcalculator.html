@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+Bohr Electron Configuration Calculator
+</title>
+<?php require "../template.head.php" ?>
+<style>
+  *{
+	padding: 0;	
+	margin: 0;
+	font-family: pangolin;
+	color: white;
+}
+
+body
+{	
+	background-color: #326ba8;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#screen{
+	border: 2px solid white;
+	width: 80%;
+	font-size: 2em;
+	border-radius: 50px;
+	padding: 5px;
+	color: white;
+}
+
+#atomic-number{
+	width: 40px;
+	height: 40px;
+	font-size: 37px;
+	margin: 10px;
+	border: none;
+	border-bottom: 2px solid white;
+	outline:none;
+	background-color: #326ba8;
+	transition: width 0.5s;
+	overflow: auto;
+}
+
+/*
+#atomic-number:hover{
+	border: 2px solid white;
+	background-color: #89b2f5;
+}
+*/
+
+#screen button
+{
+	width: 50%;
+	height: 30px;
+	font-size: 25px;
+	padding: auto;
+	border: 2px solid white;
+	background-color: #326ba8;
+}
+
+#screen button:hover{
+	background-color: #89b2f5;
+}
+
+#result
+{
+	border-top: 1px solid white;
+	margin: 5px 0px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+<script>
+  var result="",i=1,valence
+
+function calculate()
+{	
+	var userInput=document.querySelector("#atomic-number")
+	var atomicNumber=userInput.value
+	if(atomicNumber.length*20>2 && atomicNumber.length*20<document.querySelector("#screen").offsetWidth-40)
+	{
+		userInput.style.width=atomicNumber.length*20+"px"
+	}
+	atomConfiguration(atomicNumber);
+	printResult();
+}
+
+function atomConfiguration(electron)
+{
+	var electronMax
+	while(electron>0)
+	{
+		electronMax= findElectronMax(i)
+		if(electron-electronMax>=0)
+		{
+		  now=electronMax
+		}
+		else
+		{
+		  now=electron
+		}
+		
+		if(now>8 && electron-now==0)
+		{
+		  for(j=2;j<=i;j++)
+		  {
+		    if(electron>findElectronMax(j) && electron<=findElectronMax(j+1)) 
+		    {
+		      now=findElectronMax(j)
+		    }
+		  }
+		}
+		result+=" "+now
+		electron-=now
+		if(electron==0)
+		{
+			valence=now;
+		}
+		i++
+	} 
+}
+
+function findElectronMax(shell)
+{
+  return 2*(shell*shell)
+}
+
+function printResult()
+{
+  var resultBox=document.querySelector("#result")
+  resultBox.style.display="block"
+  resultBox.innerHTML=result;
+} 
+</script>
+</head>
+<body align="center">	
+	<div id="screen">
+		<div id="question">			
+			Insert Atomic Number	
+			<br>			
+			<input id="atomic-number" type="number"/>	
+			<br>
+			<button onclick="calculate()">Calculate</button>
+		</div>	
+		<div id="result" style="display:none;">
+		</div>
+	</div>
+</body>
+</html>
